@@ -1,6 +1,6 @@
 //
 //  DetailViewController.swift
-//  Project1-StormViewer
+//  Project3-StormViewerSocial
 //
 //  Created by Kush, Ryan on 11/25/18.
 //  Copyright © 2018 Kush, Ryan. All rights reserved.
