@@ -35,10 +35,33 @@ class ActionViewController: UIViewController {
 
                     DispatchQueue.main.async {
                         self.title = self.pageTitle
+
+                        // load user defaults for website if it exists
+                        if let scriptForWebsite = UserDefaults.standard.object(forKey:self.pageURL) as? Data {
+                            let jsonDecoder = JSONDecoder()
+                            do {
+                                let stringDict = try jsonDecoder.decode([String].self, from: scriptForWebsite)
+                                if let code = stringDict.first {
+                                    self.script.text = code
+                                }
+                            } catch {
+                                print("No script for existing address")
+                            }
+                        }
                     }
 
                 }
             }
+        }
+    }
+
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        if let savedData = try? jsonEncoder.encode([self.script.text]) {
+            UserDefaults.standard.set(savedData, forKey: self.pageURL)
+        }
+        else {
+            print("Failed to save script")
         }
     }
 
@@ -69,6 +92,7 @@ class ActionViewController: UIViewController {
         item.attachments = [customJavaScript]
 
         self.extensionContext!.completeRequest(returningItems: [item])
+        self.save()
     }
 
 }
