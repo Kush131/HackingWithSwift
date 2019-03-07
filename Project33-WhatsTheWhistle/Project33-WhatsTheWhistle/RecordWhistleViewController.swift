@@ -159,7 +159,8 @@ class RecordWhistleViewController: UIViewController {
     }
 
     @objc func nextTapped() {
-
+        let vc = SelectGenreViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     override func loadView() {
