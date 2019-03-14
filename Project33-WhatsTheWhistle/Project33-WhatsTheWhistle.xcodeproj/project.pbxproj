@@ -16,6 +16,7 @@
 		43A27B572239F15A00EF0298 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A27B562239F15A00EF0298 /* ResultsTableViewController.swift */; };
 		43AC7DC32230E21100595F3E /* AddCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AC7DC22230E21100595F3E /* AddCommentsViewController.swift */; };
 		43AC7DC52230E54100595F3E /* SubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AC7DC42230E54100595F3E /* SubmitViewController.swift */; };
+		43C33DFB223B0014002E1E15 /* MyGenresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C33DFA223B0014002E1E15 /* MyGenresTableViewController.swift */; };
 		43D4711D2230D08800ED2221 /* SelectGenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D4711C2230D08800ED2221 /* SelectGenreViewController.swift */; };
 		43E475C32231D337005C62F7 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E475C22231D337005C62F7 /* CloudKit.framework */; };
 		43E475C5223216E7005C62F7 /* Whistle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E475C4223216E7005C62F7 /* Whistle.swift */; };
@@ -33,6 +34,7 @@
 		43A27B562239F15A00EF0298 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 		43AC7DC22230E21100595F3E /* AddCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentsViewController.swift; sourceTree = "<group>"; };
 		43AC7DC42230E54100595F3E /* SubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
+		43C33DFA223B0014002E1E15 /* MyGenresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGenresTableViewController.swift; sourceTree = "<group>"; };
 		43D4711C2230D08800ED2221 /* SelectGenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenreViewController.swift; sourceTree = "<group>"; };
 		43E475C02231D326005C62F7 /* Project33-WhatsTheWhistle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Project33-WhatsTheWhistle.entitlements"; sourceTree = "<group>"; };
 		43E475C22231D337005C62F7 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -79,6 +81,7 @@
 				43369D4A222F510900CA0FB0 /* AppDelegate.swift */,
 				43369D4C222F510900CA0FB0 /* ViewController.swift */,
 				43A27B562239F15A00EF0298 /* ResultsTableViewController.swift */,
+				43C33DFA223B0014002E1E15 /* MyGenresTableViewController.swift */,
 				43E475C4223216E7005C62F7 /* Whistle.swift */,
 				43369D4E222F510900CA0FB0 /* Main.storyboard */,
 				43369D51222F510A00CA0FB0 /* Assets.xcassets */,
@@ -181,6 +184,7 @@
 				43369D4B222F510900CA0FB0 /* AppDelegate.swift in Sources */,
 				43369D5D222F536D00CA0FB0 /* RecordWhistleViewController.swift in Sources */,
 				43E475C5223216E7005C62F7 /* Whistle.swift in Sources */,
+				43C33DFB223B0014002E1E15 /* MyGenresTableViewController.swift in Sources */,
 				43AC7DC52230E54100595F3E /* SubmitViewController.swift in Sources */,
 				43D4711D2230D08800ED2221 /* SelectGenreViewController.swift in Sources */,
 			);
