@@ -46,7 +46,7 @@ class ViewController: UITableViewController {
         operation.desiredKeys = ["genre", "comments"]
         operation.resultsLimit = 50
 
-        var newWhistles = [Whistle()]
+        var newWhistles = [Whistle]()
 
         operation.recordFetchedBlock = { record in
             let whistle = Whistle()
@@ -112,6 +112,12 @@ class ViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.whistles.count
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ResultsTableViewController()
+        vc.whistle = whistles[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 }
