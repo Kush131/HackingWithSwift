@@ -38,7 +38,7 @@ class Board: NSObject {
 
     func nextEmptySlot(in column: Int) -> Int? {
         for row in 0 ..< Board.height {
-            if chip(inColumn: 0, row: row) == .none {
+            if chip(inColumn: column, row: row) == .none {
                 return row
             }
         }
