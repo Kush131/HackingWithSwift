@@ -26,7 +26,7 @@
 		438B61E0223C4EC700A3F984 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		438B61E2223C4EC700A3F984 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		438B61E8223C62AF00A3F984 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
-		43E8EBE92278068000062184 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Move.swift; path = "Project34-FourInARow/Move.swift"; sourceTree = "<group>"; };
+		43E8EBE92278068000062184 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		43EC58DD227002CF00532F61 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,7 +44,6 @@
 		438B61CA223C4EC600A3F984 = {
 			isa = PBXGroup;
 			children = (
-				43E8EBE92278068000062184 /* Move.swift */,
 				438B61D5223C4EC600A3F984 /* Project34-FourInARow */,
 				438B61D4223C4EC600A3F984 /* Products */,
 			);
@@ -61,6 +60,7 @@
 		438B61D5223C4EC600A3F984 /* Project34-FourInARow */ = {
 			isa = PBXGroup;
 			children = (
+				43E8EBE92278068000062184 /* Move.swift */,
 				438B61D6223C4EC600A3F984 /* AppDelegate.swift */,
 				438B61D8223C4EC600A3F984 /* ViewController.swift */,
 				438B61E8223C62AF00A3F984 /* Board.swift */,

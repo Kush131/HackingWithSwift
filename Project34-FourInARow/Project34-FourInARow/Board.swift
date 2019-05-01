@@ -23,6 +23,14 @@ class Board: NSObject, GKGameModel {
     var slots = [ChipColor]()
     var currentPlayer: Player
 
+    var players: [GKGameModelPlayer]? {
+        return Player.allPlayers
+    }
+
+    var activePlayer: GKGameModelPlayer? {
+        return currentPlayer
+    }
+
     override init() {
         self.currentPlayer = Player.allPlayers[0]
         for _ in 0 ..< Board.width * Board.height {
@@ -114,5 +122,52 @@ class Board: NSObject, GKGameModel {
             slots = board.slots
             currentPlayer = board.currentPlayer
         }
+    }
+
+    /// For a given Player, gives back the list of available moves
+    ///
+    /// - Parameter player: The current Player that can make moves.
+    /// - Returns: The list of available moves the Player can take given the current state,
+    /// or nil if there are no moves available.
+    func gameModelUpdates(for player: GKGameModelPlayer) -> [GKGameModelUpdate]? {
+        if let playerObject = player as? Player {
+            if isWin(for: playerObject) || isWin(for: playerObject.opponent) {
+                return nil
+            }
+
+            var moves = [Move]()
+
+            for column in 0 ..< Board.width {
+                if canMove(in: column) {
+                    moves.append(Move(column: column))
+                }
+            }
+            return moves
+        }
+        return nil
+    }
+
+
+    /// Applies the move to Board and switches the current player.
+    ///
+    /// - Parameter gameModelUpdate: The move we are going to make.
+    func apply(_ gameModelUpdate: GKGameModelUpdate) {
+        // Downcast to a Move so we can access the column property of Move
+        if let move = gameModelUpdate as? Move {
+            add(chip: currentPlayer.chip, in: move.column)
+            currentPlayer = currentPlayer.opponent
+        }
+    }
+
+    /// Gives a score for the given state a Player is in.
+    ///
+    /// - Parameter player: The Player, which is a state the game is in.
+    /// - Returns: A score for the given state.
+    func score(for player: GKGameModelPlayer) -> Int {
+        if let playerObject = player as? Player {
+            if isWin(for: playerObject) { return 1000 }
+            else if isWin(for: playerObject.opponent) { return -1000 }
+        }
+        return 0
     }
 }

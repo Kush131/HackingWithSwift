@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameplayKit
 
 class ViewController: UIViewController {
 
@@ -15,8 +16,14 @@ class ViewController: UIViewController {
     var placedChips = [[UIView]]()
     var board: Board!
 
+    var strategist: GKMinmaxStrategist!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        strategist = GKMinmaxStrategist()
+        strategist.maxLookAheadDepth = 7
+        strategist.randomSource = GKARC4RandomSource()
 
         for _ in 0 ..< Board.width {
             placedChips.append([UIView]())
@@ -26,6 +33,7 @@ class ViewController: UIViewController {
 
     func resetBoard() {
         board = Board()
+        strategist.gameModel = board
         updateUI()
 
         for i in 0 ..< placedChips.count {
@@ -33,6 +41,46 @@ class ViewController: UIViewController {
                 chip.removeFromSuperview()
             }
             placedChips[i].removeAll(keepingCapacity: true)
+        }
+    }
+
+    func columnForAIMove() -> Int? {
+        if let aiMove = strategist.bestMove(for: board.currentPlayer) as? Move {
+            return aiMove.column
+        }
+        return nil
+    }
+
+    func makeAIMove(in column: Int) {
+        if let row = board.nextEmptySlot(in: column) {
+            board.add(chip: board.currentPlayer.chip, in: column)
+            addChip(inColumn: column, row: row, color: board.currentPlayer.color)
+
+            // Player can make a move now, so enable buttons again and get rid of loading spinner.
+            columnButtons.forEach { $0.isEnabled = true }
+            navigationItem.leftBarButtonItem = nil
+
+            continueGame()
+        }
+    }
+
+    func startAIMove() {
+        // Disable buttons so the player cannot make a move for the AI
+        columnButtons.forEach { $0.isEnabled = false }
+        let spinner = UIActivityIndicatorView(style: .gray)
+        spinner.startAnimating()
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: spinner)
+
+        DispatchQueue.global().async { [unowned self] in
+            let strategistTime = CFAbsoluteTimeGetCurrent()
+            guard let column = self.columnForAIMove() else { return }
+            let delta = CFAbsoluteTimeGetCurrent() - strategistTime
+            let aiTimeCeiling = 1.0
+            let delay = aiTimeCeiling - delta
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                self.makeAIMove(in: column)
+            })
         }
     }
 
@@ -83,6 +131,7 @@ class ViewController: UIViewController {
 
     func updateUI() {
         title = "\(board.currentPlayer.name)'s turn"
+        if board.currentPlayer.chip == .black { startAIMove() }
     }
 
     func continueGame() {
