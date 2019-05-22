@@ -1,14 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11134" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11055"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14490.21"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModuleProvider="target"/>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Project37_PsychicTester_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <label alignment="center" text="Please read the instructions on your phone before continuing" textAlignment="center" numberOfLines="0" id="I1T-c9-gw5"/>
+                        <button width="1" alignment="center" title="I'm Ready" id="44z-iQ-e8S">
+                            <connections>
+                                <action selector="hideWelcomeText" destination="AgC-eL-Hgc" id="ahn-BR-2ue"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="hideButton" destination="44z-iQ-e8S" id="XBR-Tk-zlj"/>
+                        <outlet property="welcomeText" destination="I1T-c9-gw5" id="M66-eL-nit"/>
+                    </connections>
+                </controller>
             </objects>
         </scene>
     </scenes>

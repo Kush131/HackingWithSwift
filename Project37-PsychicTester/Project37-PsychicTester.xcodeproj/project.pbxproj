@@ -84,6 +84,7 @@
 		43101DB12294ED2F00497E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43101DE92294EF1B00497E0C /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		43101DEB2294F97000497E0C /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		43101DF62295CD4700497E0C /* PhantomFromSpace.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PhantomFromSpace.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +136,7 @@
 				43101D912294ED2D00497E0C /* LaunchScreen.storyboard */,
 				43101D942294ED2D00497E0C /* Info.plist */,
 				43101DEB2294F97000497E0C /* GradientView.swift */,
+				43101DF62295CD4700497E0C /* PhantomFromSpace.mp3 */,
 			);
 			path = "Project37-PsychicTester";
 			sourceTree = "<group>";

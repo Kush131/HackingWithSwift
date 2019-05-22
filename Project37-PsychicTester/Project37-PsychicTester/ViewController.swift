@@ -7,17 +7,44 @@
 //
 
 import UIKit
+import AVFoundation
+import WatchConnectivity
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, WCSessionDelegate {
     var allCards = [CardViewController]()
+
+    var music: AVAudioPlayer!
+
+    var lastMessage: CFAbsoluteTime = 0
 
     @IBOutlet weak var cardContainer: UIView!
     @IBOutlet weak var gradientView: GradientView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if (WCSession.isSupported()) {
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
+
+        view.backgroundColor = UIColor.red
+
+        UIView.animate(withDuration: 20, delay: 0, options: [.allowUserInteraction, .autoreverse, .repeat], animations: {
+            self.view.backgroundColor = UIColor.blue
+        })
+        createParticles()
         loadCards()
+        playMusic()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let instructions = "Please ensure your Apple Watch is configured correctly. On your iPhone, launch Apple's 'Watch' configuration app then choose General > Wake Screen. On that screen, please disable Wake Screen On Wrist Raise, then select Wake For 70 Seconds. On your Apple Watch, please swipe up on your watch face and enable Silent Mode. You're done!"
+        let ac = UIAlertController(title: "Adjust your settings", message: instructions, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "I'm Ready", style: .default))
+        present(ac, animated: true)
     }
 
     @objc func loadCards() {
@@ -93,6 +120,85 @@ class ViewController: UIViewController {
         perform(#selector(loadCards), with: nil, afterDelay: 2)
     }
 
+    func createParticles() {
+        // Create layer for emitting distractions
+        let particleEmitter = CAEmitterLayer()
+
+        particleEmitter.emitterPosition = CGPoint(x: view.frame.width / 2.0, y: -50)
+        particleEmitter.emitterShape = .line
+        particleEmitter.emitterSize = CGSize(width: view.frame.width, height: 1)
+        particleEmitter.renderMode = .additive
+
+        let cell = CAEmitterCell()
+        cell.birthRate = 2 // Create two objects every second
+        cell.lifetime = 5.0 // Each object lives 5 seconds
+        cell.velocity = 100 // How fast the object flies
+        cell.velocityRange = 50 // Variation on object velocity
+        cell.emissionLongitude = .pi
+        cell.spinRange = 5 // Amount of variation on spins of object
+        cell.scale = 0.5
+        cell.scaleRange = 0.25
+        cell.color = UIColor(white: 1, alpha: 0.1).cgColor
+        cell.alphaSpeed = -0.025
+        cell.contents = UIImage(named: "particle")?.cgImage
+        particleEmitter.emitterCells = [cell]
+        gradientView.layer.addSublayer(particleEmitter)
+    }
+
+    func playMusic() {
+        if let musicURL = Bundle.main.url(forResource: "PhantomFromSpace", withExtension: "mp3") {
+            if let audioPlayer = try? AVAudioPlayer(contentsOf: musicURL) {
+                music = audioPlayer
+                music.numberOfLoops = -1
+                music.play()
+            }
+        }
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: cardContainer) // Return the point of the UIView
+
+        for card in allCards {
+            if card.view.frame.contains(location) { // If our view contains the location of the press
+                if view.traitCollection.forceTouchCapability == .available { // We have 3D Touch enabled
+                    if touch.force == touch.maximumPossibleForce {
+                        card.front.image = UIImage(named: "cardStar")
+                        card.isCorrect = true
+                    }
+                }
+                if card.isCorrect {
+                    sendWatchMessage()
+                }
+            }
+        }
+    }
+
+    func sendWatchMessage() {
+        let currentTime = CFAbsoluteTimeGetCurrent()
+
+        if lastMessage + 0.5 > currentTime { return }
+
+        if WCSession.default.isReachable {
+            let message = ["Message" : "Hello"]
+            WCSession.default.sendMessage(message, replyHandler: nil)
+        }
+        lastMessage = CFAbsoluteTimeGetCurrent()
+    }
+
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+    }
+
+    func sessionDidBecomeInactive(_ session: WCSession) {
+
+    }
+
+    func sessionDidDeactivate(_ session: WCSession) {
+
+    }
 
 }
 
